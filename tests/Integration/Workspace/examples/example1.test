@@ -1,0 +1,16 @@
+// File: Foobar.php
+<?php
+
+class Foobar
+{
+}
+// File: Foobar/Barfoo.php
+<?php
+
+namespace Foobar;
+
+class Barfoo
+{
+}
+// File: Expected.php
+
