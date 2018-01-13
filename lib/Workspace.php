@@ -100,7 +100,7 @@ class Workspace
 
     private function remove($path = '')
     {
-        if (is_file($path)) {
+        if (is_link($path) || is_file($path)) {
             unlink($path);
             return;
         }
