@@ -10,13 +10,18 @@ class ExtractOffset
 {
     public static function fromSource($source, $marker = '<>')
     {
+        list($source, $offsetStart) = self::extractOffset($source, $marker);
+        list($source, $offsetEnd) = self::extractOffset($source, $marker);
+
+        return [$source, $offsetStart, $offsetEnd];
+    }
+
+    private static function extractOffset($source, $marker)
+    {
         $offset = $offset = strpos($source, $marker);
 
         if (!$offset) {
-            throw new \InvalidArgumentException(sprintf(
-                'Could not find offset <> in example code: %s',
-                $source
-            ));
+            return [ $source, null ];
         }
 
         $source = substr($source, 0, $offset) . substr($source, $offset + 2);
