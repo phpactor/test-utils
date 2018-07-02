@@ -5,6 +5,7 @@ namespace Phpactor\TestUtils;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use InvalidArgumentException;
+use RuntimeException;
 
 class Workspace
 {
@@ -20,6 +21,12 @@ class Workspace
 
     public static function create(string $path): self
     {
+        if (empty($path)) {
+            throw new RuntimeException(
+                'Workspace path cannot be empty'
+            );
+        }
+
         return new self($path);
     }
 
@@ -52,6 +59,33 @@ class Workspace
         }
 
         mkdir($this->path);
+    }
+
+    public function put(string $path, string $contents): Workspace
+    {
+        if (!$this->exists(dirname($path))) {
+            $this->mkdir(dirname($path));
+        }
+
+        file_put_contents($this->path($path), $contents);
+
+        return $this;
+    }
+
+    public function mkdir($path): Workspace
+    {
+        $path = $this->path($path);
+
+        if (file_exists($path)) {
+            throw new InvalidArgumentException(sprintf(
+                'Node "%s" already exists, cannot create directory',
+                $path
+            ));
+        }
+
+        mkdir($path, 0777, true);
+
+        return $this;
     }
 
     public function loadManifest(string $manifest)

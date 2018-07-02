@@ -9,6 +9,12 @@ use InvalidArgumentException;
 
 class WorkspaceTest extends IntegrationTestCase
 {
+    public function setUp()
+    {
+        $this->workspace = Workspace::create($this->workspaceDir());
+        $this->workspace->reset();
+    }
+
     public function testBuild()
     {
         $manifest = <<<'EOT'
@@ -31,13 +37,12 @@ Hello World
 EOT
         ;
 
-        $workspace = Workspace::create($this->workspaceDir());
-        $workspace->loadManifest($manifest);
+        $this->workspace->loadManifest($manifest);
 
-        $this->assertTrue($workspace->exists('Foobar.php'));
-        $this->assertTrue($workspace->exists('Foobar/Barfoo.php'));
-        $this->assertFalse($workspace->exists('Foobar/Barboo.php'));
-        $this->assertEquals('Hello World', $workspace->getContents('Expected.php'));
+        $this->assertTrue($this->workspace->exists('Foobar.php'));
+        $this->assertTrue($this->workspace->exists('Foobar/Barfoo.php'));
+        $this->assertFalse($this->workspace->exists('Foobar/Barboo.php'));
+        $this->assertEquals('Hello World', $this->workspace->getContents('Expected.php'));
     }
 
     public function testGetContentsNotExist()
@@ -45,24 +50,36 @@ EOT
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('File "barbarbarbar" does not exist');
 
-        $workspace = Workspace::create($this->workspaceDir());
-        $workspace->getContents('barbarbarbar');
+        $this->workspace->getContents('barbarbarbar');
     }
 
     public function testReset()
     {
-        $workspace = Workspace::create($this->workspaceDir());
-        $workspace->reset();
-        touch($workspace->path('Foobar.php'));
-        mkdir($workspace->path('Barfoo'));
+        $this->workspace->reset();
+        touch($this->workspace->path('Foobar.php'));
+        mkdir($this->workspace->path('Barfoo'));
 
-        touch($workspace->path('Barfoo/Foobar.php'));
-        touch($workspace->path('Barfoo/BazBoo.php'));
+        touch($this->workspace->path('Barfoo/Foobar.php'));
+        touch($this->workspace->path('Barfoo/BazBoo.php'));
 
-        $workspace->reset();
+        $this->workspace->reset();
 
-        $this->assertFalse($workspace->exists('Foobar.php'));
-        $this->assertFalse($workspace->exists('Barfoo/Foobar.php'));
-        $this->assertFalse($workspace->exists('Barfoo/Bazboo.php'));
+        $this->assertFalse($this->workspace->exists('Foobar.php'));
+        $this->assertFalse($this->workspace->exists('Barfoo/Foobar.php'));
+        $this->assertFalse($this->workspace->exists('Barfoo/Bazboo.php'));
+    }
+
+    public function testMkdir()
+    {
+        $this->workspace->mkdir('foobar');
+        $this->assertTrue($this->workspace->exists('foobar'));
+        $this->assertFalse($this->workspace->exists('barfoo'));
+    }
+
+    public function testPutFileContents()
+    {
+        $this->workspace->put('foobar', 'foobar contents');
+        $this->assertTrue($this->workspace->exists('foobar'));
+        $this->assertContains('foobar contents', $this->workspace->getContents('foobar'));
     }
 }

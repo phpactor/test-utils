@@ -14,12 +14,4 @@ class ExtractOffsetTest extends TestCase
         $this->assertEquals(21, $offset);
         $this->assertEquals('<?php class Foobar {  }', $source);
     }
-
-    public function testExtractOffsetNoOffset()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Could not find offset');
-
-        ExtractOffset::fromSource('<?php class Foobar { }');
-    }
 }
