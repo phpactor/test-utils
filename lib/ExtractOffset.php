@@ -18,13 +18,13 @@ class ExtractOffset
 
     private static function extractOffset($source, $marker)
     {
-        $offset = $offset = strpos($source, $marker);
+        $offset = $offset = mb_strpos($source, $marker);
 
         if (!$offset) {
             return [ $source, null ];
         }
 
-        $source = substr($source, 0, $offset) . substr($source, $offset + 2);
+        $source = mb_substr($source, 0, $offset) . mb_substr($source, $offset + 2);
 
         return [$source, $offset];
     }
