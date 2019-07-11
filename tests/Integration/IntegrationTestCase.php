@@ -8,6 +8,6 @@ class IntegrationTestCase extends TestCase
 {
     protected function workspaceDir()
     {
-        return realpath(__DIR__ . '/Workspace');
+        return realpath(__DIR__ . '/..') . '/Workspace';
     }
 }
