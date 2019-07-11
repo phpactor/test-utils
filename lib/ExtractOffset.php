@@ -33,5 +33,3 @@ class ExtractOffset
         return [$source, strlen(mb_substr($source, 0, $offset))];
     }
 }
-
-

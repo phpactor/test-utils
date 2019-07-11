@@ -4,7 +4,6 @@ namespace Phpactor\TestUtils\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use Phpactor\TestUtils\ExtractOffset;
-use InvalidArgumentException;
 
 class ExtractOffsetTest extends TestCase
 {

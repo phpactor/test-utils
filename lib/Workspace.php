@@ -49,7 +49,13 @@ class Workspace
             ));
         }
 
-        return file_get_contents($this->path($path));
+        $contents = file_get_contents($this->path($path));
+
+        if (false === $contents) {
+            throw new RuntimeException('file_get_contents returned false');
+        }
+
+        return $contents;
     }
 
     public function reset()
