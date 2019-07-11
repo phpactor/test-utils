@@ -6,6 +6,7 @@ use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use InvalidArgumentException;
 use RuntimeException;
+use SplFileInfo;
 
 class Workspace
 {
@@ -140,9 +141,13 @@ class Workspace
 
     private function remove($path = '')
     {
-        if (is_link($path) || is_file($path)) {
-            unlink($path);
-            return;
+        if ($path) {
+            $splFileInfo = new SplFileInfo($path);
+
+            if (in_array($splFileInfo->getType(), ['socket', 'file', 'link'])) {
+                unlink($path);
+                return;
+            }
         }
 
         $files = new RecursiveIteratorIterator(
