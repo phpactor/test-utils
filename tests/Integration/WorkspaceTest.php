@@ -2,7 +2,6 @@
 
 namespace Phpactor\TestUtils\Tests\Integration;
 
-use Phpactor\TestUtils\Tests\Integration\IntegrationTestCase;
 use Phpactor\TestUtils\Workspace;
 use InvalidArgumentException;
 
