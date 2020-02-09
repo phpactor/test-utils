@@ -2,11 +2,12 @@
 
 namespace Phpactor\TestUtils;
 
-use RecursiveIteratorIterator;
-use RecursiveDirectoryIterator;
 use InvalidArgumentException;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use RuntimeException;
 use SplFileInfo;
+use Webmozart\PathUtil\Path;
 
 class Workspace
 {
@@ -36,9 +37,13 @@ class Workspace
         return file_exists($this->path($path));
     }
 
-    public function path(string $path): string
+    public function path(?string $path = null): string
     {
-        return $this->path . DIRECTORY_SEPARATOR . $path;
+        if (null === $path) {
+            return $this->path;
+        }
+
+        return Path::join($this->path, $path);
     }
 
     public function getContents(string $path): string

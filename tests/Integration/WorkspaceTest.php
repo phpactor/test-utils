@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpactor\TestUtils\Tests\Integration\Workspace;
+namespace Phpactor\TestUtils\Tests\Integration;
 
 use Phpactor\TestUtils\Tests\Integration\IntegrationTestCase;
 use Phpactor\TestUtils\Workspace;
@@ -80,5 +80,21 @@ EOT
         $this->workspace->put('foobar', 'foobar contents');
         $this->assertTrue($this->workspace->exists('foobar'));
         $this->assertContains('foobar contents', $this->workspace->getContents('foobar'));
+    }
+
+    public function testGetPathWithNoArgs()
+    {
+        $this->assertEquals($this->workspaceDir(), $this->workspace->path());
+    }
+
+    public function testGetPath()
+    {
+        $this->assertEquals($this->workspaceDir() . '/foo', $this->workspace->path('foo'));
+    }
+
+    public function testGetPathConcat()
+    {
+        $workspace = Workspace::create($this->workspaceDir() . '/foobar/');
+        $this->assertEquals($this->workspaceDir() . '/foobar/foo', $workspace->path('foo'));
     }
 }
