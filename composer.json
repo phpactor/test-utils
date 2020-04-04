@@ -10,11 +10,11 @@
     ],
     "require": {
         "php": "^7.3",
-        "webmozart/path-util": "^2.3",
-        "dms/phpunit-arraysubset-asserts": "dev-master",
-        "phpspec/prophecy-phpunit": "dev-master"
+        "webmozart/path-util": "^2.3"
     },
     "require-dev": {
+        "dms/phpunit-arraysubset-asserts": "dev-master",
+        "phpspec/prophecy-phpunit": "dev-master",
         "phpunit/phpunit": "^9.0",
         "friendsofphp/php-cs-fixer": "~2.15.0",
         "phpstan/phpstan": "^0.12.0"
