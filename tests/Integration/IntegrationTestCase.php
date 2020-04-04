@@ -2,11 +2,11 @@
 
 namespace Phpactor\TestUtils\Tests\Integration;
 
-use PHPUnit\Framework\TestCase;
+use Phpactor\TestUtils\PHPUnit\TestCase;
 
 class IntegrationTestCase extends TestCase
 {
-    protected function workspaceDir()
+    protected function workspaceDir(): string
     {
         return realpath(__DIR__ . '/..') . '/Workspace';
     }

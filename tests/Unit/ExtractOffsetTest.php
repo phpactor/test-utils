@@ -2,12 +2,12 @@
 
 namespace Phpactor\TestUtils\Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
 use Phpactor\TestUtils\ExtractOffset;
+use Phpactor\TestUtils\PHPUnit\TestCase;
 
 class ExtractOffsetTest extends TestCase
 {
-    public function testExtractOffset()
+    public function testExtractOffset(): void
     {
         list($source, $offset) = ExtractOffset::fromSource('<?php class Foobar { <> }');
         $this->assertEquals(21, $offset);
