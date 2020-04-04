@@ -9,6 +9,7 @@
         }
     ],
     "require": {
+        "php": "^7.3",
         "webmozart/path-util": "^2.3",
         "dms/phpunit-arraysubset-asserts": "dev-master",
         "phpspec/prophecy-phpunit": "dev-master"
@@ -32,5 +33,12 @@
         "branch-alias": {
             "dev-master": "1.0.x-dev"
         }
+    },
+    "scripts": {
+        "integrate": [
+            "vendor/bin/php-cs-fixer fix",
+            "vendor/bin/phpstan analyse lib -c phpstan.neon",
+            "vendor/bin/phpunit"
+        ]
     }
 }

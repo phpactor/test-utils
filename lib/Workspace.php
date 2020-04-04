@@ -64,7 +64,7 @@ class Workspace
         return $contents;
     }
 
-    public function reset()
+    public function reset(): void
     {
         if (file_exists($this->path)) {
             $this->remove($this->path);
@@ -84,7 +84,7 @@ class Workspace
         return $this;
     }
 
-    public function mkdir($path): Workspace
+    public function mkdir(string $path): Workspace
     {
         $path = $this->path($path);
 
@@ -100,7 +100,7 @@ class Workspace
         return $this;
     }
 
-    public function loadManifest(string $manifest)
+    public function loadManifest(string $manifest): void
     {
         foreach ($this->parseManifest($manifest) as $path => $contents) {
             $path = $this->path . DIRECTORY_SEPARATOR . $path;
@@ -113,7 +113,10 @@ class Workspace
         }
     }
 
-    private function parseManifest(string $manifest)
+    /**
+     * @return array<string>
+     */
+    private function parseManifest(string $manifest): array
     {
         $lines = explode(PHP_EOL, $manifest);
 
@@ -144,7 +147,7 @@ class Workspace
         }, $buffer);
     }
 
-    private function remove($path = '')
+    private function remove(string $path = ''): void
     {
         if ($path) {
             $splFileInfo = new SplFileInfo($path);
