@@ -7,7 +7,7 @@ use InvalidArgumentException;
 
 class WorkspaceTest extends IntegrationTestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         $this->workspace = Workspace::create($this->workspaceDir());
         $this->workspace->reset();
@@ -78,7 +78,7 @@ EOT
     {
         $this->workspace->put('foobar', 'foobar contents');
         $this->assertTrue($this->workspace->exists('foobar'));
-        $this->assertContains('foobar contents', $this->workspace->getContents('foobar'));
+        $this->assertStringContainsString('foobar contents', $this->workspace->getContents('foobar'));
     }
 
     public function testGetPathWithNoArgs()
