@@ -13,26 +13,26 @@ class WorkspaceTest extends IntegrationTestCase
         $this->workspace->reset();
     }
 
-    public function testBuild()
+    public function testBuild(): void
     {
         $manifest = <<<'EOT'
-// File: Foobar.php
-<?php
+            // File: Foobar.php
+            <?php
 
-class Foobar
-{
-}
-// File: Foobar/Barfoo.php
-<?php
+            class Foobar
+            {
+            }
+            // File: Foobar/Barfoo.php
+            <?php
 
-namespace Foobar;
+            namespace Foobar;
 
-class Barfoo
-{
-}
-// File: Expected.php
-Hello World
-EOT
+            class Barfoo
+            {
+            }
+            // File: Expected.php
+            Hello World
+            EOT
         ;
 
         $this->workspace->loadManifest($manifest);
@@ -43,7 +43,7 @@ EOT
         $this->assertEquals('Hello World', $this->workspace->getContents('Expected.php'));
     }
 
-    public function testGetContentsNotExist()
+    public function testGetContentsNotExist(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('File "barbarbarbar" does not exist');
@@ -51,7 +51,7 @@ EOT
         $this->workspace->getContents('barbarbarbar');
     }
 
-    public function testReset()
+    public function testReset(): void
     {
         $this->workspace->reset();
         touch($this->workspace->path('Foobar.php'));
@@ -67,31 +67,31 @@ EOT
         $this->assertFalse($this->workspace->exists('Barfoo/Bazboo.php'));
     }
 
-    public function testMkdir()
+    public function testMkdir(): void
     {
         $this->workspace->mkdir('foobar');
         $this->assertTrue($this->workspace->exists('foobar'));
         $this->assertFalse($this->workspace->exists('barfoo'));
     }
 
-    public function testPutFileContents()
+    public function testPutFileContents(): void
     {
         $this->workspace->put('foobar', 'foobar contents');
         $this->assertTrue($this->workspace->exists('foobar'));
         $this->assertStringContainsString('foobar contents', $this->workspace->getContents('foobar'));
     }
 
-    public function testGetPathWithNoArgs()
+    public function testGetPathWithNoArgs(): void
     {
         $this->assertEquals($this->workspaceDir(), $this->workspace->path());
     }
 
-    public function testGetPath()
+    public function testGetPath(): void
     {
         $this->assertEquals($this->workspaceDir() . '/foo', $this->workspace->path('foo'));
     }
 
-    public function testGetPathConcat()
+    public function testGetPathConcat(): void
     {
         $workspace = Workspace::create($this->workspaceDir() . '/foobar/');
         $this->assertEquals($this->workspaceDir() . '/foobar/foo', $workspace->path('foo'));
