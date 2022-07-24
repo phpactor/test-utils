@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": "^7.3 || ^8.0",
-        "webmozart/path-util": "^2.3"
+        "symfony/filesystem": "^4.2 || ^5.0"
     },
     "require-dev": {
         "dms/phpunit-arraysubset-asserts": "dev-master",
@@ -43,5 +43,8 @@
             "vendor/bin/phpstan analyse lib -c phpstan.neon",
             "vendor/bin/phpunit"
         ]
+    },
+    "config": {
+        "allow-plugins": true
     }
 }
