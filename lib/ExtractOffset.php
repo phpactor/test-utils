@@ -9,21 +9,21 @@ namespace Phpactor\TestUtils;
 class ExtractOffset
 {
     /**
-     * @return array<string>
+     * @return array{string,int,int}
      */
     public static function fromSource(string $source, string $marker = '<>'): array
     {
         list($source, $offsetStart) = self::extractOffset($source, $marker);
         list($source, $offsetEnd) = self::extractOffset($source, $marker);
 
-        return [$source, $offsetStart, $offsetEnd];
+        return [$source, (int)$offsetStart, (int)$offsetEnd];
     }
 
     /**
      * Extract the byte offset from the given marked source
      * and remove the <> mark.
      *
-     * @return array<mixed>
+     * @return array{string,int}
      */
     private static function extractOffset(string $source, string $marker): array
     {
