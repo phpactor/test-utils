@@ -118,7 +118,7 @@ class Workspace
      */
     private function parseManifest(string $manifest): array
     {
-        $lines = explode(PHP_EOL, $manifest);
+        $lines = explode("\n", $manifest);
 
         $buffer = [];
         $currentFile = null;
@@ -143,7 +143,7 @@ class Workspace
         }
 
         return array_map(function (array $lines) {
-            return implode(PHP_EOL, $lines);
+            return implode("\n", $lines);
         }, $buffer);
     }
 
