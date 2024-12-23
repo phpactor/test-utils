@@ -18,7 +18,7 @@ class Workspace
 
     public function __construct(string $path)
     {
-        $this->path = $path;
+        $this->path = Path::canonicalize($path);
     }
 
     public static function create(string $path): self
