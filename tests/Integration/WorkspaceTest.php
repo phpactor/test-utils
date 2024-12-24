@@ -7,6 +7,11 @@ use InvalidArgumentException;
 
 class WorkspaceTest extends IntegrationTestCase
 {
+    /**
+     * @var Workspace
+     */
+    private $workspace;
+
     protected function setUp(): void
     {
         $this->workspace = Workspace::create($this->workspaceDir());
