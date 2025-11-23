@@ -9,14 +9,14 @@
         }
     ],
     "require": {
-        "php": "^7.3 || ^8.0",
+        "php": "^8.1",
         "symfony/filesystem": "^4.2 || ^5.0 || ^6.0 || ^7.0"
     },
     "require-dev": {
         "dms/phpunit-arraysubset-asserts": "dev-master",
         "ergebnis/composer-normalize": "^2.0",
         "friendsofphp/php-cs-fixer": "^2.17",
-        "phpspec/prophecy-phpunit": "dev-master",
+        "phpspec/prophecy-phpunit": "^2.0",
         "phpstan/phpstan": "~0.12.0",
         "phpunit/phpunit": "^9.0"
     },
